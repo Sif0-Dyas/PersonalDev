@@ -1,15 +1,13 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './App.css';
-import PortfolioPage from "./components/PortfolioMain";
-import StickyNavbar from './components/StickyNavBar';
-
+import Portfolio from "./components/PortfolioMain";
+import SideNav from "./components/SideNav";
 function App() {
   return (
     <div className="App">
       <div>
-        <PortfolioPage/>
-        <StickyNavbar/>
+        <SideNav/>
+        <Portfolio/>
       </div>
     </div>
   );
