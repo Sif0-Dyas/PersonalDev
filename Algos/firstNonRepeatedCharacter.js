@@ -9,6 +9,9 @@ function firstNonRepeatedCharacter(str) {
         charFrequency[char] = charFrequency[char] ? charFrequency[char] + 1 : 1;
     }
 
+    // Displays the frequnecy table
+    console.log(freq)
+
     // Loop through the input string again and return the first non-repeated character
     for (let i = 0; i < str.length; i++) {
         const char = str[i];
