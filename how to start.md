@@ -28,7 +28,7 @@ then from terminal:
 
 7. `npm install axios`
 
-8. `react-router-dom`
+8. `npm install react-router-dom`
 
 
 NOTE: these can all be shorthand chained into a single command, as well as you should install only what is needed for your app
@@ -171,7 +171,7 @@ mongoose.connect(`mongodb://localhost/${database}`, {
 
 <<<-------End server set up------->>>
 
-from here you are ready to build our your server for basic CRUD
+from here you are ready to build out your server for basic CRUD
 
 8. `nodemon server.js` to spin up your dev backend
 
