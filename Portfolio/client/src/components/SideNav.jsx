@@ -25,7 +25,7 @@ const SideNav = () => {
                             duration={50}
                             className="block hover:bg-gray-700 px-4 py-2 rounded cursor-pointer"
                         >
-                            Home
+                            About me
                         </Link>
                     </li>
                     <li>

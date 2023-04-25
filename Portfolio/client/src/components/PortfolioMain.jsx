@@ -23,12 +23,13 @@ const Portfolio = () => {
         <div className="flex">
             <SideNav handleOpenModal={handleOpenModal} />
             <div className="w-full">
-                <About/> 
 
                 <section id="projects" className="text-gray-400 bg-gray-900 body-font">
                     <Projects/>
                 </section>
 
+                <About/> 
+                
                 <ContactModal isOpen={isModalOpen} onRequestClose={handleCloseModal} />
             </div>
         </div>
