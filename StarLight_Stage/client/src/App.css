@@ -1,0 +1,52 @@
+.homeH1 {
+  font-weight: bold;
+}
+
+.homeBox {
+
+  margin: 0;
+  color: white;
+  background: black;
+
+}
+
+.homeSection {
+  /* position: relative; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 400px;
+  padding: 100px 20vw;
+
+
+}
+
+.black {
+  background-color: #0f172a;
+}
+
+.purple {
+  background: #581c87;
+}
+
+.spacer {
+
+  aspect-ratio: 900/675;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  object-fit: contain;
+  /* max-height: 200px; */
+
+}
+
+.layer1 {
+  background-image: url('./pages/layered-steps-haikei.svg');
+  object-fit: contain;
+}
+
+.mainLogin {
+  background-image: url(https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80);
+  object-fit: contain;
+}
