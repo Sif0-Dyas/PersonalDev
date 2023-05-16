@@ -1,5 +1,5 @@
 import React from 'react'
-import me from './me.jpg'
+
 
 const Profile = () => {
     return (
@@ -14,7 +14,7 @@ const Profile = () => {
                     <a href="#!">
                         <img
                             className="rounded-t-lg"
-                            src={me}
+                            src="#"
                             alt="" />
                     </a>
                     <div className="p-6">

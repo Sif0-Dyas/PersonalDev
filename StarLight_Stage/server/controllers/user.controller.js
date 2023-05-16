@@ -7,16 +7,16 @@ require('dotenv').config();
 module.exports.register = (req, res) => {
     User.create(req.body)
         .then(user => {
-            console.log("we here", req.body)
             const userToken = jwt.sign({ id: user._id }, process.env.SECRET_KEY);
-            res.cookie("usertoken", userToken, { httpOnly: true }).json({ msg: "success", user: user });
+            res
+                .cookie("usertoken", userToken, { httpOnly: true })
+                .json({ msg: "success", user: { _id: user._id, email: user.email } });
         })
         .catch(err => {
             console.log("Error message:", err.message);
             res.status(400).json(err);
         });
-
-}
+};
 
 module.exports.index = (req, res) => {
     User.find()
@@ -29,15 +29,17 @@ module.exports.login = async (req, res) => {
     if (user === null) {
         return res.sendStatus(400);
     }
+
     const correctPassword = await bcrypt.compare(req.body.password, user.password);
     if (!correctPassword) {
         return res.sendStatus(400);
     }
-    console.log(process.env.SECRET_KEY);
-    const userToken = jwt.sign({ id: user._id }, process.env.SECRET_KEY);
-    res.cookie("usertoken", userToken, { httpOnly: true }).json({ msg: "success!", user });
 
-}
+    const userToken = jwt.sign({ id: user._id }, process.env.SECRET_KEY);
+    res
+        .cookie("usertoken", userToken, { httpOnly: true })
+        .json({ msg: "success!", user: { _id: user._id, email: user.email } });
+};
 
 module.exports.logout = (req, res) => {
     res.clearCookie('usertoken')
@@ -56,3 +58,13 @@ module.exports.cookie = (req, res) => {
         .cookie("testkey", "testvalue", { httpOnly: true })
         .json("success")
 }
+
+module.exports.uploadImage = async (req, res) => {
+    const user = await User.findById(req.body.userId);
+    if (!user) {
+        return res.status(400).send('User not found');
+    }
+    user.imagePaths.push(req.file.path);
+    await user.save();
+    res.send('File uploaded successfully');
+};

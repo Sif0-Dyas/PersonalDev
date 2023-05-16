@@ -1,105 +1,70 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import SideBar from '../components/SideBar';
 import Profile from '../components/Profile';
 
 const Home = () => {
-    return (
-        <div>
+  const [user, setUser] = useState({});
+  const [events, setEvents] = useState([]);
 
-            <SideBar />
+  useEffect(() => {
+    axios.get('/api/getUser')
+      .then(res => {
+        if (res.data) {
+          setUser(res.data);
+        } else {
+          console.error("No user data received");
+        }
+      })
+      .catch(err => console.error(err));
 
-            <div className='ml-16    '>
-                <div className="homeBox ">
-                    <section className='homeSection black '>
-                        <h1 className='homeH1' >Welcome "insert id" </h1>
+    axios.get('/api/getEvents')  // replace with your actual events API endpoint
+      .then(res => {
+        if (res.data) {
+          setEvents(res.data);
+        } else {
+          console.error("No events data received");
+        }
+      })
+      .catch(err => console.error(err));
+  }, []);
 
-                        <Profile />
+  return (
+    <div>
+      <SideBar />
 
+      <div className='ml-16'>
+        <div className="homeBox ">
+          <section className='homeSection black '>
+            <h1 className='homeH1'>Welcome {user.firstName} </h1>  {/* Replace `id` with `firstName` */}
+            <Profile />
+          </section>
 
-                    </section>
+          <table>
+            <tbody>
+              {events.map((event, index) => (
+                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600" key={index}>
+                  <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {event.name}  {/* replace `name` with the appropriate property of the event object */}
+                  </th>
+                  <td className="px-6 py-4">
+                    {event.venue}  {/* replace `venue` with the appropriate property of the event object */}
+                  </td>
+                  <td className="px-6 py-4">
+                    {event.date}  {/* replace `date` with the appropriate property of the event object */}
+                  </td>
 
-                    <div className="spacer layer1">
-                        {/* this is a decorative div */}
-                    </div>
-
-
-                    <section className='homeSection purple' >
-                        <h1 className='homeH1'>Upcoming events!</h1>
-{/* ---------------table--------------- */}
-                        <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-                            <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                    <tr>
-                                        <th scope="col" className="px-6 py-3">
-                                            Event Name
-                                        </th>
-                                        <th scope="col" className="px-6 py-3">
-                                            Venue
-                                        </th>
-                                        <th scope="col" className="px-6 py-3">
-                                            Date(s)
-                                        </th>
-                                        <th scope="col" className="px-6 py-3">
-                                            <span className="sr-only">Edit</span>
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                        <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            EDC Vegas
-                                        </th>
-                                        <td className="px-6 py-4">
-                                            Las Vegas MotorSpeedway
-                                        </td>
-                                        <td className="px-6 py-4">
-                                            May 19-21, 2023
-                                        </td>
-
-                                        <td className="px-6 py-4 text-right">
-                                            <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                        </td>
-                                    </tr>
-                                    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                        <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            Beyond Wonderland PNW
-                                        </th>
-                                        <td className="px-6 py-4">
-                                            The Gorge Ampitheatre
-                                        </td>
-                                        <td className="px-6 py-4">
-                                            June 17-18, 2023
-                                        </td>
-
-                                        <td className="px-6 py-4 text-right">
-                                            <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                        </td>
-                                    </tr>
-                                    <tr className="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                        <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            ABGT Weekender
-                                        </th>
-                                        <td className="px-6 py-4">
-                                            The Gorge Ampitheatre
-                                        </td>
-                                        <td className="px-6 py-4">
-                                            July 21-23, 2023
-                                        </td>
-
-                                        <td className="px-6 py-4 text-right">
-                                            <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                    </section>
-                </div>
-
-            </div>
+                  <td className="px-6 py-4 text-right">
+                    <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
-    )
+      </div>
+    </div>
+  )
 }
 
 export default Home;
