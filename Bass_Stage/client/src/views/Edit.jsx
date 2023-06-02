@@ -109,7 +109,7 @@ const Edit = () => {
                 </div>
 
                 <div>
-                    <button type="submit" className="btn btn-outline-success">Edit Event</button>| <button className="btn btn-outline-primary" ><Link to='/'>Cancel</Link></button>
+                    <button type="submit" className="btn btn-outline-success">Save Edit</button>| <button className="btn btn-outline-primary" ><Link to='/'>Home</Link></button>
                 </div>
 
             </form>

@@ -2,7 +2,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from "./views/Home"
 import  Create  from "./views/Create";
-import Display from "./views/Home";
+import View from "./views/View";
 import Edit from "./views/Edit";
 import './App.css';
 
@@ -17,7 +17,7 @@ function App() {
         <Routes>
         <Route path="/" element={<Home />} />
           <Route path="/create" element={<Create />} />
-          <Route path="/details/:id" element={<Display />} />
+          <Route path="/details/:id" element={<View />} />
           <Route path="/edit/:id" element={<Edit />} />
         </Routes>
 

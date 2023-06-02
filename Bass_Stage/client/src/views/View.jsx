@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-const Display = () => {
+const View = () => {
     const [eventList, setEventList] = useState([]);
     const [loaded, setLoaded] = useState(false);
 
@@ -30,17 +30,15 @@ const Display = () => {
 
     return (
         <div>
-            <button className="btn btn-warning">
-                <Link to={'/create'}>Add Event</Link>
-            </button>
+      
             <div className="event-list">
                 {eventList.map((event, i) => (
                     <div className="event-item" key={i}>
                         <div className="event-details">
                             <div className="event-name">{event.name}</div>
                             <div className="event-description">{event.description}</div>
-                            <div className="event-startDate">{event.startDate}</div>
-                            <div className="event-endDate">{event.endDate}</div>
+                            <div className="event-startDate">{new Date(event.startDate).toLocaleDateString()}</div>
+                            <div className="event-endDate">{new Date(event.endDate).toLocaleDateString()}</div>
                             <div className="event-venueName">{event.venueName}</div>
                             <div className="event-country">{event.country}</div>
                             <div className="event-lineup">{event.lineup}</div>
@@ -50,9 +48,6 @@ const Display = () => {
                             <div className="event-top10">{event.top10 ? 'Yes' : 'No'}</div>
                         </div>
                         <div className="event-actions">
-                            <button className="btn btn-outline-dark">
-                                <Link to={`/details/${event._id}`}>View</Link>
-                            </button>
                             <button className="btn btn-outline-warning">
                                 <Link to={`/edit/${event._id}`}>Edit</Link>
                             </button>
@@ -64,6 +59,7 @@ const Display = () => {
                             >
                                 Delete
                             </button>
+                            <button className="btn btn-outline-primary" ><Link to='/'>Home</Link></button>
                         </div>
                     </div>
                 ))}
@@ -72,4 +68,4 @@ const Display = () => {
     );
 };
 
-export default Display;
+export default View;
