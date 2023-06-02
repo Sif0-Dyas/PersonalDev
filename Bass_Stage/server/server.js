@@ -17,8 +17,10 @@ app.use(express.urlencoded({extended: true}))
 // ^^^^needs to be avove the lines below 
 require('./config/mongoose.config')
 
-const Routes = require('./routes/YOUR_DATA.routes')
+const Routes = require('./routes/events.routes')
 //make sure you insert your routes name^^^^^
+
+require('./config/mongoose.config')
 Routes(app)
 
 //let's you know what port you are using
