@@ -7,6 +7,9 @@ const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
 const path = require('path');
+const morgan = require('morgan');
+app.use(morgan('dev'));
+
 
 // Step 1: Set up CORS middleware
 app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
@@ -36,7 +39,7 @@ const upload = multer({ storage });
 
 // Step 5: Set up routes for your application
 require('./config/mongoose.config');
-require('./routes/starLight.routes')(app);
+require('./routes/user.routes')(app);
 require('./routes/event.routes')(app);
 
 // Step 6: Start the server and listen for incoming requests

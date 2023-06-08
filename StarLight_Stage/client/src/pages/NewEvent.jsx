@@ -2,64 +2,66 @@ import React, { useState } from 'react';
 import SideBar from '../components/SideBar';
 import axios from 'axios';
 import DateRangeComponent from '../components/DateRangePicker';
+import { useNavigate, Link } from 'react-router-dom'
+
 
 const NewEvent = () => {
-  const [event, setEvent] = useState({
-    name: '',
-    description: '',
-    startDate: null,
-    endDate: null,
-    venueName: '',
-    country: '',
-    lineup: '',
-    favoritePerformance: '',
-    rating: '',
-    notes: ''
-  });
+  const [name, setName] = useState("")
+  const [description, setDescription] = useState("")
+  const [startDate, setStartDate] = useState("")
+  const [endDate, setEndDate] = useState("")
+  const [venueName, setVenueName] = useState("")
+  const [country, setCountry] = useState("")
+  const [lineup, setLineup] = useState("")
+  const [favoritePerformance, setFavoritePerformance] = useState("")
+  const [rating, setRating] = useState("")
+  const [notes, setNotes] = useState("")
+  const [top10, setTop10] = useState(false)
+  const [errors, setErrors] = useState([])
+
+  const navigate = useNavigate()
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const event = { name, description, startDate, endDate, venueName, country, lineup, favoritePerformance, rating, notes, top10 }
+    axios.post("http://localhost:8000/api/events/new", event)
+      .then((res) => {
+        navigate("/home")
+      })
+      .catch(err => {
+        const errorResponse = err.response.data.errors;
+        const errorArr = [];
+        for (const key of Object.keys(errorResponse)) {
+          errorArr.push(errorResponse[key].message)
+        }
+        setErrors(errorArr);
+      })
+  }
 
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await axios.post('/api/events', event);
-      console.log(res.data);
-      // handle success
-    } catch (error) {
-      console.log(error.response.data);
-      // handle error
-    }
-  };
+  // const handleDateChange = (startDate, endDate) => {
+  //   setEvent({
+  //     ...event,
+  //     startDate,
+  //     endDate
+  //   });
+  // };
 
 
-  const handleDateChange = (startDate, endDate) => {
-    setEvent({
-      ...event,
-      startDate,
-      endDate
-    });
-  };
-
-
-
-
-  const handleChange = (e) => {
-    setEvent({
-      ...event,
-      [e.target.name]: e.target.value,
-    });
-  };
 
   return (
     <div>
       <SideBar />
+      {errors.map((err, index) => <p key={index}>{err}</p>)}
       <div className='ml-16 p-4'>
         <p>This is the New Event.</p>
 
 
 
-
+        {/* ~~~~~~~~~~~~~~~~~~~~~ */}
 
         <form className="mt-6" onSubmit={handleSubmit}>
+
           <div className="mb-2">
             <label htmlFor="name" className="block text-sm font-semibold text-gray-900">
               Name
@@ -68,11 +70,12 @@ const NewEvent = () => {
               type="text"
               id="name"
               name="name"
-              value={event.name}
-              onChange={handleChange}
+              onChange={(e) => setName(e.target.value)}
               className="block w-full px-4 py-2 mt-2 text-cyan-800 bg-white border rounded-md focus:border-blue-400 focus:ring-cyan-300 focus:outline-none focus:ring focus:ring-opacity-40"
             />
           </div>
+
+
           <div className="mb-2">
             <label htmlFor="description" className="block text-sm font-semibold text-gray-900">
               Description
@@ -80,19 +83,29 @@ const NewEvent = () => {
             <textarea
               id="description"
               name="description"
-              value={event.description}
-              onChange={handleChange}
+              onChange={(e) => setDescription(e.target.value)}
               className="block w-full px-4 py-2 mt-2 text-cyan-800 bg-white border rounded-md focus:border-blue-400 focus:ring-cyan-300 focus:outline-none focus:ring focus:ring-opacity-40"
             ></textarea>
           </div>
+
+
           <div className="mb-2">
             <label htmlFor="eventDate" className="block text-sm font-semibold text-gray-900">
               Event Date
             </label>
-         
+
+            <div>
+              <label>Start Date</label>
+              <input type="date" onChange={(e) => setStartDate(e.target.value)} />
+            </div>
+
+            <div>
+              <label>End Date</label>
+              <input type="date" onChange={(e) => setEndDate(e.target.value)} />
+            </div>
 
 
-            <DateRangeComponent onDateChange={handleDateChange} />
+            {/* <DateRangeComponent onDateChange={handleDateChange} /> */}
 
           </div>
           <div className="mb-2">
@@ -103,8 +116,7 @@ const NewEvent = () => {
               type="text"
               id="venueName"
               name="venueName"
-              value={event.venueName}
-              onChange={handleChange}
+              onChange={(e) => setVenueName(e.target.value)}
               className="block w-full px-4 py-2 mt-2 text-cyan-800 bg-white border rounded-md focus:border-blue-400 focus:ring-cyan-300 focus:outline-none focus:ring focus:ring-opacity-40"
             />
           </div>
@@ -116,8 +128,7 @@ const NewEvent = () => {
               type="text"
               id="country"
               name="country"
-              value={event.country}
-              onChange={handleChange}
+              onChange={(e) => setCountry(e.target.value)}
               className="block w-full px-4 py-2 mt-2 text-cyan-800 bg-white border rounded-md focus:border-blue-400 focus:ring-cyan-300 focus:outline-none focus:ring focus:ring-opacity-40"
             />
           </div>
@@ -130,8 +141,7 @@ const NewEvent = () => {
               type="text"
               id="lineup"
               name="lineup"
-              value={event.lineup}
-              onChange={handleChange}
+              onChange={(e) => setLineup(e.target.value)}
               className="block w-full px-4 py-2 mt-2 text-cyan-800 bg-white border rounded-md focus:border-blue-400 focus:ring-cyan-300 focus:outline-none focus:ring focus:ring-opacity-40"
             />
           </div>
@@ -144,8 +154,7 @@ const NewEvent = () => {
               type="text"
               id="favoritePerformance"
               name="favoritePerformance"
-              value={event.favoritePerformance}
-              onChange={handleChange}
+              onChange={(e) => setFavoritePerformance(e.target.value)}
               className="block w-full px-4 py-2 mt-2 text-cyan-800 bg-white border rounded-md focus:border-blue-400 focus:ring-cyan-300 focus:outline-none focus:ring focus:ring-opacity-40"
             />
           </div>
@@ -158,8 +167,7 @@ const NewEvent = () => {
               type="number"
               id="rating"
               name="rating"
-              value={event.rating}
-              onChange={handleChange}
+              onChange={(e) => setRating(e.target.value)}
               className="block w-full px-4 py-2 mt-2 text-cyan-800 bg-white border rounded-md focus:border-blue-400 focus:ring-cyan-300 focus:outline-none focus:ring focus:ring-opacity-40"
             />
           </div>
@@ -171,13 +179,15 @@ const NewEvent = () => {
             <textarea
               id="notes"
               name="notes"
-              value={event.notes}
-              onChange={handleChange}
+              onChange={(e) => setNotes(e.target.value)}
               className="block w-full px-4 py-2 mt-2 text-cyan-800 bg-white border rounded-md focus:border-blue-400 focus:ring-cyan-300 focus:outline-none focus:ring focus:ring-opacity-40"
             ></textarea>
           </div>
 
-
+          <div>
+                    <label>Top 10</label>
+                    <input type="checkbox" onChange={(e) => setTop10(e.target.checked)} />
+                </div>
 
 
           <div className="mt-6">

@@ -2,7 +2,7 @@ const EventController = require('../controllers/event.controller');
 
 module.exports = (app) => {
     // Create
-    app.post('/api/events', EventController.addEvent);
+    app.post('/api/events/new', EventController.addEvent);
 
     // Read all
     app.get('/api/events', EventController.allEvents);

@@ -5,7 +5,7 @@ const Profile = () => {
     return (
         <div>
 
-
+{/* insert user id h1 here */}
 
 
             <div className="flex justify-center">
@@ -20,10 +20,10 @@ const Profile = () => {
                     <div className="p-6">
                         <h5
                             className="mb-2 text-xl font-medium leading-tight text-neutral-800 dark:text-neutral-50">
-                            Follow me!
+                            Check back later!
                         </h5>
                         <p className="mb-4 text-base text-neutral-600 dark:text-neutral-200">
-                            leading the group to the Pagoda stage (^_−)☆ 
+                            under construction (^_−)☆ 
                         </p>
                     
                     </div>
