@@ -8,11 +8,11 @@ module.exports = (app) => {
     app.get('/api/events', EventController.allEvents);
 
     // Read one
-    app.get('/api/events/:id', EventController.oneEvent);
+    app.get('/api/event/:id', EventController.oneEvent);
 
     // Update
-    app.put('/api/events/:id', EventController.updateEvent);
+    app.put('/api/event/:id', EventController.updateEvent);
 
     // Delete
-    app.delete('/api/events/:id', EventController.deleteEvent);
+    app.delete('/api/event/:id', EventController.deleteEvent);
 };

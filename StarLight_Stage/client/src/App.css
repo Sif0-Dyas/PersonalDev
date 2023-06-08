@@ -31,19 +31,19 @@
 
 .spacer {
 
-  aspect-ratio: 900/675;
-  width: 100%;
-  background-repeat: no-repeat;
+  /* aspect-ratio: 900/675; */
+  /* width: 100%; */
+  /* background-repeat: no-repeat; */
   background-position: center;
-  background-size: cover;
+  /* background-size: cover; */
   object-fit: contain;
-  /* max-height: 200px; */
+  /* max-height: 400px; */
 
 }
 
 .layer1 {
-  background-image: url('./pages/layered-steps-haikei.svg');
-  object-fit: contain;
+  background-image: url('./pages/layered-steps-haikei.png');
+  /* object-fit: contain; */
 }
 
 .mainLogin {

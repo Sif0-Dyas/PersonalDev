@@ -148,7 +148,7 @@ const NewEvent = () => {
 
           <div className="mb-2">
             <label htmlFor="favoritePerformance" className="block text-sm font-semibold text-gray-900">
-              Favorite Performance
+              Favorite Performance(s)
             </label>
             <input
               type="text"

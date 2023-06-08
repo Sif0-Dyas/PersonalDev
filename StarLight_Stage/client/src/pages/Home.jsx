@@ -5,10 +5,11 @@ import Profile from '../components/Profile';
 import { Link } from 'react-router-dom'
 
 
+
 const Home = () => {
   const [user, setUser] = useState({});
   // const [events, setEvents] = useState([]);
-  
+
 
   const [eventList, setEventList] = useState([])
   const [loaded, setLoaded] = useState(false)
@@ -43,95 +44,76 @@ const Home = () => {
   //     })
   //     .catch(err => console.error(err));
 
-  //   axios.get('/api/events')  // replace with your actual events API endpoint
-  //     .then(res => {
-  //       if (res.data) {
-  //         setEvents(res.data);
-  //       } else {
-  //         console.error("No events data received");
-  //       }
-  //     })
-  //     .catch(err => console.error(err));
-  // }, []);
-
   return (
     <div>
-      <SideBar />
+      <SideBar/>
 
       <div className='ml-16'>
-        <div className="homeBox ">
-          <section className='homeSection black '>
-            <h1 className='homeH1'>Welcome {user.firstName} </h1>  {/* Replace `id` with `firstName` */}
-            <Profile />
+        <div className="homeBox">
+          <section className='homeSection black'>
+            <h1 className='homeH1'>Welcome {user.firstName}</h1>
+            <Profile/>
           </section>
 
-          {/* <table>
-            <tbody>
-              {events.map((event, index) => (
-                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600" key={index}>
-                  <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    {event.name}  
-                  </th>
-                  <td className="px-6 py-4">
-                    {event.venue}  
-                  </td>
-                  <td className="px-6 py-4">
-                    {event.date}
-                  </td>
-
-                  <td className="px-6 py-4 text-right">
-                    <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table> */}
 
 
-<p>new tabel inster test</p>
-
-<table className='table' >
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Venue Name</th>
-            <th>Country</th>
-            <th>Rating</th>
-            <th>Top 10</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            eventList.map((event, i) => {
-              return (
-                <tr key={i}>
-                  <td>{event.name}</td>
-
-                  <td>{new Date(event.startDate).toLocaleDateString()}</td>
-                  <td>{new Date(event.endDate).toLocaleDateString()}</td>
-                  <td>{event.venueName}</td>
-                  <td>{event.country}</td>
-                  <td>{event.rating}</td>
-                  <td>{event.top10 ? "Yes" : "No"}</td>
-                  <td>
-                    <button className="btn btn-outline-dark"><Link to={`/details/${event._id}`}>View</Link></button> |
-                    <button className="btn btn-outline-warning" ><Link to={`/edit/${event._id}`}>Edit</Link></button> |
-                    <button onClick={(e) => { handleDelete(e, event._id) }} className="btn btn-outline-danger">Delete</button>
-                  </td>
-                </tr>
-              )
-            })
-          }
-        </tbody>
-      </table>
-    
+          <div className="spacer layer1">
 
 
 
-        </div>
+
+          <div className="max-w-7xl mx-auto">
+              <div className="overflow-x-auto shadow-md sm:rounded-lg">
+                    <table className="min-w-full divide-y divide-gray-200 table-fixed dark:divide-gray-700">
+                      <thead>
+                        <tr>
+                          <th className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">Name</th>
+                          <th className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">Start Date</th>
+                          <th className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">End Date</th>
+                          <th className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">Venue Name</th>
+                          <th className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">Country</th>
+                          <th className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">Rating</th>
+                          <th className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">Top 10</th>
+                          <th className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">Actions</th>
+                        </tr>
+                      </thead>
+
+                      <tbody>
+                        {
+                          eventList.map((event, i) => {
+                            return (
+                              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600" key={i}>
+                                <td className="px-6 py-4">{event.name}</td>
+                                <td className="px-6 py-4">{new Date(event.startDate).toLocaleDateString()}</td>
+                                <td className="px-6 py-4">{new Date(event.endDate).toLocaleDateString()}</td>
+                                <td className="px-6 py-4">{event.venueName}</td>
+                                <td className="px-6 py-4">{event.country}</td>
+                                <td className="px-6 py-4">{event.rating}</td>
+                                <td className="px-6 py-4">{event.top10 ? "Yes" : "No"}</td>
+                                <td className="px-6 py-4">
+                                  <button className="btn btn-outline-dark"><Link to={`/details/${event._id}`}>View</Link></button> 
+                                  {/* <button className="btn btn-outline-warning" ><Link to={`/edit/${event._id}`}>Edit</Link></button> | */}
+                                  {/* <button onClick={(e) => { handleDelete(e, event._id) }} className="btn btn-outline-danger">Delete</button> */}
+                                </td>
+                              </tr>
+                            )
+                          })
+                        }
+                      </tbody>
+
+                    </table>
+
+              </div>
+            </div>
+          </div>
+                        </div>
+                    
+          <div className="homeBox">
+            <section className='homeSection black'>
+              <h1 >Supplementary area.</h1>
+            </section>
+          </div>
+
       </div>
     </div>
   )
