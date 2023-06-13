@@ -7,12 +7,12 @@ import { Link } from 'react-router-dom'
 
 
 const Home = () => {
-  const [user, setUser] = useState({});
+  const [user] = useState({});
   // const [events, setEvents] = useState([]);
 
 
   const [eventList, setEventList] = useState([])
-  const [loaded, setLoaded] = useState(false)
+  const [loaded, ] = useState(false)
 
   useEffect(() => {
     axios.get('http://localhost:8000/api/events')
@@ -23,15 +23,15 @@ const Home = () => {
       .catch((error) => { console.log("This is an error", error) })
   }, [loaded])
 
-  const handleDelete = (e, id) => {
-    axios.delete(`http://localhost:8000/api/event/${id}`)
-      .then((res) => {
-        console.log('Deleting this event response:', id)
-        setLoaded(!loaded)
-      })
-      .catch((error) => { console.log("This is handle error", error) })
+  // const handleDelete = (e, id) => {
+  //   axios.delete(`http://localhost:8000/api/event/${id}`)
+  //     .then((res) => {
+  //       console.log('Deleting this event response:', id)
+  //       setLoaded(!loaded)
+  //     })
+  //     .catch((error) => { console.log("This is handle error", error) })
 
-  }
+  // }
 
   // useEffect(() => {
   //   axios.get('/api/getUser')
@@ -45,10 +45,11 @@ const Home = () => {
   //     .catch(err => console.error(err));
 
   return (
+    <div className='full'>
     <div>
       <SideBar/>
 
-      <div className='ml-16'>
+   
         <div className="homeBox">
           <section className='homeSection black'>
             <h1 className='homeH1'>Welcome {user.firstName}</h1>
@@ -115,7 +116,8 @@ const Home = () => {
           </div>
 
       </div>
-    </div>
+      </div>
+  
   )
 }
 

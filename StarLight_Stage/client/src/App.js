@@ -6,6 +6,7 @@ import NewEvent from './pages/NewEvent';
 import Settings from './pages/Settings';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import ViewEvent from './pages/ViewEvent';
 
 function App() {
   return (
@@ -15,11 +16,12 @@ function App() {
       <Routes>
 
       <Route path="/" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-      <Route path='/home' element={<Home />}/>
+      <Route path="/register" element={<Register />}/>
+      <Route path='/home' element={<Home />} />
       <Route path='/passport' element={<Passport />} />
-      <Route path='/newEvent' element={<NewEvent />}  />
-      <Route path='/settings' element={<Settings />}  />
+      <Route path='/details/:id' element={<ViewEvent />} />
+      <Route path='/newEvent' element={<NewEvent />} />
+      <Route path='/settings' element={<Settings />} />
 
       </Routes>
       </BrowserRouter>
