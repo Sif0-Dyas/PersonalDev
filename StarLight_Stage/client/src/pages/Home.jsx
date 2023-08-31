@@ -71,7 +71,7 @@ const Home = () => {
                             <td className="px-6 py-4">{event.rating}</td>
                             <td className="px-6 py-4">{event.top10 ? "Yes" : "No"}</td>
                             <td className="px-6 py-4">
-                              <button className="btn btn-outline-dark"><Link to={`/details/${event._id}`}>View</Link></button>
+                              <button className="btn btn-outline-dark"><Link to={`/details/${event._id}`}>Edit</Link></button>
                               {/* <button className="btn btn-outline-warning" ><Link to={`/edit/${event._id}`}>Edit</Link></button> | */}
                               {/* <button onClick={(e) => { handleDelete(e, event._id) }} className="btn btn-outline-danger">Delete</button> */}
                             </td>

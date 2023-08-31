@@ -181,18 +181,16 @@ const ViewEvent = () => {
           </div>
 
           <div className="input-container">
-            <label htmlFor="lineup" className="block text-sm font-semibold text-gray-200">
-              Lineup
-            </label>
-            <input
-              type="text"
-              id="lineup"
-              name="lineup"
-              value={lineup}
-              onChange={(e) => setLineup(e.target.value)}
-              className="input-mail block w-full px-4 py-2 mt-2 text-cyan-800 bg-white border rounded-md focus:border-blue-400 focus:ring-cyan-300 focus:outline-none focus:ring focus:ring-opacity-40"
-            />
-          </div>
+    <label htmlFor="lineup" className="block text-sm font-semibold text-gray-200">Lineup</label>
+    <textarea 
+        id="lineup" 
+        name="lineup" 
+        rows="5"
+        value={lineup}
+        onChange={(e) => setLineup(e.target.value)} 
+        className="input-mail block w-full px-4 py-2 mt-2 text-cyan-800 bg-white border rounded-md focus:border-blue-400 focus:ring-cyan-300 focus:outline-none focus:ring focus:ring-opacity-40"
+    ></textarea>
+</div>
 
           <div className="input-container">
             <label htmlFor="favoritePerformance" className="block text-sm font-semibold text-gray-200">
