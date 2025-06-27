@@ -1,13 +1,17 @@
 const mongoose = require('mongoose')
 
-const database = 'Main_Stage' 
-// whatever your databse will be called^^
+const database = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/bass_stage'
+console.log('🔗 Connecting to database:', database)
 
 mongoose.set("strictQuery", false);
-mongoose.connect(`mongodb://127.0.0.1/${database}`, {
-  // In some cases you mane need to change local host to `127.0.0.1` 
+mongoose.connect(database, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    serverSelectionTimeoutMS: 5000, // Timeout after 5s instead of 30s
+    socketTimeoutMS: 45000, // Close sockets after 45s of inactivity
 })
-    .then(() => console.log(`established connection to the Database: ${database}`))
-    .catch(err => console.log(`something wrong with database.`))
+    .then(() => console.log(`✅ Connected to MongoDB: bass_stage`))
+    .catch(err => {
+        console.log(`❌ Database connection failed:`, err.message);
+        console.log(`🔧 Make sure MongoDB Docker container is running on port 27017`);
+    })

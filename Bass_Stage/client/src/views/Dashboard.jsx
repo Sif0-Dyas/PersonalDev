@@ -1,46 +1,30 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import SideBar from '../components/SideBar';
+import Profile from '../components/Profile';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import '../App.css';
 
-const View = () => {
+const Dashboard = () => {
+    const { user } = useAuth();
     const [eventList, setEventList] = useState([]);
-    const [loaded, setLoaded] = useState(false);
-    const { isAuthenticated } = useAuth();
-    const navigate = useNavigate();
+    const [loaded] = useState(false);
 
     useEffect(() => {
-        if (!isAuthenticated) {
-            navigate('/login');
-            return;
-        }
-
-        axios
-            .get('http://localhost:8000/api/events', {
-                withCredentials: true
+        axios.get('http://localhost:8000/api/events', {
+            withCredentials: true
+        })
+            .then((response) => {
+                console.log('Response Data: ', response.data);
+                // Ensure we always have an array
+                const events = Array.isArray(response.data) ? response.data : [];
+                setEventList(events);
             })
-            .then((bucket) => {
-                setEventList(bucket.data);
-            })
-            .catch((error) => {
-                console.log('This is an error', error);
+            .catch((error) => { 
+                console.log("This is an error", error);
+                setEventList([]); // Set empty array on error
             });
-    }, [loaded, isAuthenticated, navigate]);
-
-    const handleDelete = (e, id) => {
-        axios
-            .delete(`http://localhost:8000/api/event/${id}`, {
-                withCredentials: true
-            })
-            .then((res) => {
-                setLoaded(!loaded);
-            })
-            .catch((error) => {
-                console.log('This is handle error', error);
-            });
-    };
+    }, [loaded]);
 
     return (
         <div className='full'>
@@ -49,7 +33,8 @@ const View = () => {
 
                 <div className="homeBox">
                     <section className='homeSection black'>
-                        <h1 className='homeH1'>All Events</h1>
+                        <h1 className='homeH1'>Welcome {user?.firstName}</h1>
+                        <Profile />
                     </section>
 
                     <div className="spacer layer1">
@@ -70,7 +55,7 @@ const View = () => {
                                     </thead>
 
                                     <tbody>
-                                        {
+                                        {eventList.length > 0 ? (
                                             eventList.map((event, i) => {
                                                 return (
                                                     <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600" key={i}>
@@ -81,23 +66,24 @@ const View = () => {
                                                         <td className="px-6 py-4">{event.country}</td>
                                                         <td className="px-6 py-4">{event.rating}</td>
                                                         <td className="px-6 py-4">{event.top10 ? "Yes" : "No"}</td>
-                                                        <td className="px-6 py-4 space-x-2">
-                                                            <button className="btn btn-outline-primary">
-                                                                <Link to={`/edit/${event._id}`} className="text-blue-600 hover:text-blue-800">Edit</Link>
-                                                            </button>
-                                                            <button
-                                                                onClick={(e) => {
-                                                                    handleDelete(e, event._id);
-                                                                }}
-                                                                className="btn btn-outline-danger text-red-600 hover:text-red-800"
-                                                            >
-                                                                Delete
-                                                            </button>
+                                                        <td className="px-6 py-4">
+                                                            <Link to={`/details/${event._id}`} className="text-blue-600 hover:text-blue-900 mr-4">
+                                                                View
+                                                            </Link>
+                                                            <Link to={`/edit/${event._id}`} className="text-green-600 hover:text-green-900">
+                                                                Edit
+                                                            </Link>
                                                         </td>
                                                     </tr>
-                                                )
+                                                );
                                             })
-                                        }
+                                        ) : (
+                                            <tr>
+                                                <td colSpan="8" className="px-6 py-4 text-center text-gray-500 dark:text-gray-400">
+                                                    No events found. <Link to="/create" className="text-blue-600 hover:text-blue-900">Create your first event!</Link>
+                                                </td>
+                                            </tr>
+                                        )}
                                     </tbody>
                                 </table>
                             </div>
@@ -107,10 +93,15 @@ const View = () => {
 
                 <div className="homeBox">
                     <section className='homeSection black'>
-                        <h1>Event Management</h1>
-                        <Link to="/create" className="submit mt-4 inline-block">
-                            Add New Event
-                        </Link>
+                        <h1>Quick Actions</h1>
+                        <div className="flex gap-4 mt-4">
+                            <Link to="/create" className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition-colors">
+                                Add New Event
+                            </Link>
+                            <Link to="/" className="bg-gray-600 hover:bg-gray-700 text-white px-6 py-3 rounded-lg transition-colors">
+                                View All Events
+                            </Link>
+                        </div>
                     </section>
                 </div>
             </div>
@@ -118,4 +109,4 @@ const View = () => {
     );
 };
 
-export default View;
+export default Dashboard;
