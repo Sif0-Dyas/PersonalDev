@@ -8,7 +8,7 @@ class FlappyBird {
         // Game states
         this.gameState = 'start'; // 'start', 'playing', 'gameOver'
         this.score = 0;
-        this.bestScore = localStorage.getItem('bestScore') || 0;
+        this.bestScore = Number(localStorage.getItem('bestScore') || 0);
         
         // Bird properties
         this.bird = {
